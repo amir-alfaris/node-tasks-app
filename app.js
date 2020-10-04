@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import express from 'express';
 
-import User from './models/user.js';
-import Task from './models/task.js';
+import userRouter from './routers/user-router.js';
+import taskRouter from './routers/task-router.js';
 
 const connectionString = 'mongodb+srv://amir:2904@cluster0.t1yta.mongodb.net/tasks-app?retryWrites=true&w=majority';
 const app = express();
@@ -14,13 +14,10 @@ mongoose.connect(connectionString, {
     useUnifiedTopology: true
 });
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+app.use('/users', userRouter);
+app.use('/tasks', taskRouter);
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
-});
+app.listen(port);
 
 // const amir = new User({
 //     name: 'Amir',
