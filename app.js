@@ -1,8 +1,12 @@
 import mongoose from 'mongoose';
+import express from 'express';
+
 import User from './models/user.js';
 import Task from './models/task.js';
 
 const connectionString = 'mongodb+srv://amir:2904@cluster0.t1yta.mongodb.net/tasks-app?retryWrites=true&w=majority';
+const app = express();
+const port = 3000;
 
 mongoose.connect(connectionString, {
     useNewUrlParser: true,
@@ -10,25 +14,33 @@ mongoose.connect(connectionString, {
     useUnifiedTopology: true
 });
 
-const amir = new User({
-    name: 'Amir',
-    age: 1,
-    email: 'amir@aaxs.com',
-    password: '1234567'
+app.get('/', (req, res) => {
+    res.send('Hello World!');
 });
 
-const task = new Task({
-    title: 'cook'
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
 });
 
-amir.save().then((model) => {
-    console.log(model);
-}).catch((err) => {
-    console.log((err));
-});
+// const amir = new User({
+//     name: 'Amir',
+//     age: 1,
+//     email: 'amir@aaxs.com',
+//     password: '1234567'
+// });
 
-task.save().then((model) => {
-    console.log(model);
-}).catch((err) => {
-    console.log((err));
-});
+// const task = new Task({
+//     title: 'cook'
+// });
+
+// amir.save().then((model) => {
+//     console.log(model);
+// }).catch((err) => {
+//     console.log((err));
+// });
+
+// task.save().then((model) => {
+//     console.log(model);
+// }).catch((err) => {
+//     console.log((err));
+// });
